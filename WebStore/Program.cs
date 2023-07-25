@@ -1,18 +1,25 @@
+using AspNetCoreTemplate.Services.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Data;
+using WebStore.Services.Data;
+using WebStore.Services.Data.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<WebStoreDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<WebStoreDbContext>();
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddScoped<IAccountService, AccountService>();
+//builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 var app = builder.Build();
 

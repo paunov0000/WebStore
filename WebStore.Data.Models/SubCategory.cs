@@ -24,6 +24,9 @@ namespace AspNetCoreTemplate.Data.Models
         [Required]
         public string SubCategoryImageURL { get; set; } = null!;
 
+        [Required]
+        public bool IsDeleted { get; set; }
+
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 

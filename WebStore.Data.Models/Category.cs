@@ -2,7 +2,6 @@
 
 namespace AspNetCoreTemplate.Data.Models
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +11,7 @@ namespace AspNetCoreTemplate.Data.Models
     {
         public Category()
         {
-         this.SubCategories = new HashSet<SubCategory>();   
+            this.SubCategories = new HashSet<SubCategory>();
         }
 
         [Key]
@@ -26,6 +25,14 @@ namespace AspNetCoreTemplate.Data.Models
         public string CategoryImageURL { get; set; } = null!;
 
         [Required]
-        public virtual ICollection<SubCategory> SubCategories { get; set; }
+        public bool IsDeleted { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
+
+        [Required]
+        public virtual IEnumerable<SubCategory> SubCategories { get; set; }
     }
 }

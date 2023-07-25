@@ -31,6 +31,9 @@ namespace AspNetCoreTemplate.Data.Models
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
+        [Required]
+        public bool IsDeleted { get; set; }
+
         [ForeignKey(nameof(SubCategory))]
         public int SubCategoryId { get; set; }
 

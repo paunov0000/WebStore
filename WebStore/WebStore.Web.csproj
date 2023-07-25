@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\WebStore.Data\WebStore.Data.csproj" />
+    <ProjectReference Include="..\WebStore.Services.Data\WebStore.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>
