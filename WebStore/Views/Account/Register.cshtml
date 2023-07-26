@@ -6,9 +6,13 @@
         <label asp-for="@Model.EmailAddress">Email address</label>
         @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">*@
         <input asp-for="@Model.EmailAddress" placeholder="Enter email">
+        <span class="text-danger field-validation-valid field-validation-valid"
+              asp-validation-for="EmailAddress" data-valmsg-replace="true"></span>
         <label asp-for="@Model.Username">Username</label>
         @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">*@
         <input asp-for="@Model.Username" placeholder="Enter username">
+        <span class="text-danger field-validation-valid field-validation-valid"
+              asp-validation-for="Username" data-valmsg-replace="true"></span>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         <label asp-for="@Model.Password">Password</label>
         @*<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">*@
@@ -20,3 +24,7 @@
     </div>
     <button type="submit" formmethod="post" class="btn btn-primary">Submit</button>
 </form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

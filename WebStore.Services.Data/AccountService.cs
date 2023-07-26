@@ -22,7 +22,7 @@
         {
             var user = await this._userManager.FindByEmailAsync(email); // TODO: what if user is null?
 
-            return await this._signInManager.PasswordSignInAsync(user, password, isPersistent: true, lockoutOnFailure: true); // TODO: check this
+            return await this._signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false); // TODO: check this
 
         }
 
@@ -43,7 +43,7 @@
                 NormalizedUserName = model.Username.ToUpper(),
             };
 
-            return await this._userManager.CreateAsync(user, model.Password);
+            return  await this._userManager.CreateAsync(user, model.Password);
         }
     }
 }

@@ -10,10 +10,10 @@ namespace AspNetCoreTemplate.Web.ViewModels.Account
     public class AccountLoginViewModel
     {
         [EmailAddress]
-        public string Email { get; set; } // TODO: implement later
+        public string Email { get; set; } = null!; // TODO: implement later
 
         [DataType(DataType.Password)]
 
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
     }
 }

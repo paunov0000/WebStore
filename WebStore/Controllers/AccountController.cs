@@ -36,7 +36,7 @@ namespace AspNetCoreTemplate.Web.Controllers
 
             if (result.Succeeded)
             {
-                await this._accountService.LoginUserAsync(model.EmailAddress, model.Password);
+                var signInResult = await this._accountService.LoginUserAsync(model.EmailAddress, model.Password);
                 return this.RedirectToAction("Index", "Home");
             }
 
