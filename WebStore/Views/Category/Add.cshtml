@@ -1,0 +1,37 @@
+﻿@using AspNetCoreTemplate.Web.ViewModels.Categories;
+@model CategoryViewModel;
+
+@{
+    ViewBag.Title = "Add a Category";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <form method="post">
+        <div class="form-group">
+            <div class="mb-3">
+                <label asp-for="Name">Category Name</label>
+                <input asp-for="Name" type="text" class="form-control" placeholder="Write down the name of the category">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+           @* <div class="mb-3">
+                <label asp-for="Description">Category Description</label>
+                <input asp-for="Description" type="text" class="form-control" placeholder="Put some description for your category">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>*@
+            <div class="mb-3">
+                <label asp-for="CategoryImageURL">Image URL</label>
+                <input asp-for="CategoryImageURL" type="text" class="form-control" placeholder="Put an URL for your category's image">
+                <span asp-validation-for="CategoryImageURL" class="small text-danger"></span>
+            </div>
+        </div>
+        <input class="btn btn-primary mt-3" type="submit" value="Create" />
+    </form>
+</div>
+
+@*@section Scripts //TODO: ADD VALIDATION WITH JS
+{
+    <partial name="_ValidationScriptsPartial" />
+}*@

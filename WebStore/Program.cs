@@ -1,3 +1,4 @@
+using AspNetCoreTemplate.Data.Models;
 using AspNetCoreTemplate.Services.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,12 @@ builder.Services.AddDbContext<WebStoreDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<WebStoreDbContext>();
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddScoped<IAccountService, AccountService>();
-//builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 
 var app = builder.Build();

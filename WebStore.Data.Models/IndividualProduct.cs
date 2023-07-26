@@ -35,8 +35,13 @@ namespace AspNetCoreTemplate.Data.Models
         public bool IsDeleted { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
-        public int SubCategoryId { get; set; }
+        public Guid SubCategoryId { get; set; }
 
         public virtual SubCategory SubCategory { get; set; } = null!;
+
+        [ForeignKey(nameof(ApplicationUser))]
+        public Guid? ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser? ApplicationUser { get; set; }
     }
 }
