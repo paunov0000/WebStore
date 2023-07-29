@@ -28,7 +28,7 @@ namespace AspNetCoreTemplate.Data.Models
         public bool IsDeleted { get; set; }
 
         [ForeignKey(nameof(Category))]
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
         public virtual Category Category { get; set; } = null!;
 

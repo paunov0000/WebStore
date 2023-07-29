@@ -24,7 +24,7 @@ namespace AspNetCoreTemplate.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Create()
         {
             var category = new CategoryViewModel();
 
@@ -32,20 +32,20 @@ namespace AspNetCoreTemplate.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryViewModel model)
+        public async Task<IActionResult> Create(CategoryViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            await categoryService.AddSaveAsync(model);
+            await categoryService.CreateSaveAsync(model);
 
             return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             var category = await categoryService.FindAsync(id);
 
@@ -58,7 +58,7 @@ namespace AspNetCoreTemplate.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(CategoryViewModel model, int id)
+        public async Task<IActionResult> Edit(CategoryViewModel model, Guid id)
         {
             if (!this.ModelState.IsValid)
             {

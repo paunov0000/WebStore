@@ -11,11 +11,12 @@ namespace AspNetCoreTemplate.Data.Models
     {
         public Category()
         {
+            this.Id = Guid.NewGuid();
             this.SubCategories = new HashSet<SubCategory>();
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(NameMaxLength)]

@@ -12,8 +12,8 @@ using WebStore.Data;
 namespace WebStore.Data.Migrations
 {
     [DbContext(typeof(WebStoreDbContext))]
-    [Migration("20230726145629_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230729092315_ChangedCategoryIdToGuid")]
+    partial class ChangedCategoryIdToGuid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,11 +104,9 @@ namespace WebStore.Data.Migrations
 
             modelBuilder.Entity("AspNetCoreTemplate.Data.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CategoryImageURL")
                         .IsRequired()
@@ -139,6 +137,9 @@ namespace WebStore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -164,6 +165,8 @@ namespace WebStore.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("IndividualProducts");
@@ -175,8 +178,8 @@ namespace WebStore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -334,11 +337,17 @@ namespace WebStore.Data.Migrations
 
             modelBuilder.Entity("AspNetCoreTemplate.Data.Models.IndividualProduct", b =>
                 {
+                    b.HasOne("AspNetCoreTemplate.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("ProductsListed")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("AspNetCoreTemplate.Data.Models.SubCategory", "SubCategory")
                         .WithMany()
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("SubCategory");
                 });
@@ -403,6 +412,11 @@ namespace WebStore.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AspNetCoreTemplate.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ProductsListed");
                 });
 
             modelBuilder.Entity("AspNetCoreTemplate.Data.Models.Category", b =>

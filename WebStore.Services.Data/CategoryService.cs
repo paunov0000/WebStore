@@ -15,7 +15,7 @@ namespace WebStore.Services.Data
             dbContext = _dbContext;
         }
 
-        public async Task AddSaveAsync(CategoryViewModel model)
+        public async Task CreateSaveAsync(CategoryViewModel model)
         {
             var category = new Category()
             {
@@ -31,7 +31,7 @@ namespace WebStore.Services.Data
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<CategoryViewModel?> FindAsync(int id)
+        public async Task<CategoryViewModel?> FindAsync(Guid id)
             => await dbContext
                 .Categories
                 .Where(x => x.Id == id)

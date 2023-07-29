@@ -12,9 +12,9 @@ namespace WebStore.Services.Data.Interfaces
     {
         Task<List<CategoryViewModel>> ListAllCategoriesAsync();
 
-        Task AddSaveAsync(CategoryViewModel model);
+        Task CreateSaveAsync(CategoryViewModel model);
 
-        Task<CategoryViewModel?> FindAsync(int id);
+        Task<CategoryViewModel?> FindAsync(Guid id);
 
         Task SaveChangesAsync();
     }
