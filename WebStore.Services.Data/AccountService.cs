@@ -18,11 +18,18 @@
             this._signInManager = signInManager;
         }
 
-        public async Task<SignInResult> LoginUserAsync(string email, string password)
+        public async Task<bool?> LoginUserAsync(string email, string password)
         {
             var user = await this._userManager.FindByEmailAsync(email); // TODO: what if user is null?
 
-            return await this._signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false); // TODO: check this
+            if (user == null)
+            {
+                return new bool?(); //TODO: must try with simply return null;
+            }
+
+            var result = await this._signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false); // TODO: check this
+
+            return result.Succeeded;
 
         }
 

@@ -64,9 +64,15 @@ namespace AspNetCoreTemplate.Web.Controllers
                 return this.View(model);
             }
 
-            var result = await this._accountService.LoginUserAsync(model.Email, model.Password);
+            bool? result = await this._accountService.LoginUserAsync(model.EmailAddress, model.Password);
 
-            if (result.Succeeded)
+            if (result == null)
+            {
+                this.ModelState.AddModelError(string.Empty, "There's no such account.");
+                return this.View(model);
+            }
+
+            if (result == true)
             {
                 return this.RedirectToAction("Index", "Home");
             }

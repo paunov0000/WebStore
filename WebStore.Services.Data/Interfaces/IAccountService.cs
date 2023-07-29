@@ -12,7 +12,7 @@ namespace WebStore.Services.Data.Interfaces
     {
         Task<IdentityResult> RegisterUserAsync(AccountRegisterViewModel model);
 
-        Task<SignInResult> LoginUserAsync(string email, string password);
+        Task<bool?> LoginUserAsync(string email, string password);
 
         Task LogoutUserAsync();
     }

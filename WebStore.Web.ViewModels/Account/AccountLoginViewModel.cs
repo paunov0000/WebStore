@@ -9,11 +9,13 @@ namespace AspNetCoreTemplate.Web.ViewModels.Account
 {
     public class AccountLoginViewModel
     {
-        [EmailAddress]
-        public string Email { get; set; } = null!; // TODO: implement later
+        [EmailAddress(ErrorMessage = "Email address is invalid.")]
+        [Required]
+        [Display(Name = "Email address")]
+        public string EmailAddress { get; set; } = null!; // TODO: implement later
 
         [DataType(DataType.Password)]
-
+        [Required]
         public string Password { get; set; } = null!;
     }
 }
