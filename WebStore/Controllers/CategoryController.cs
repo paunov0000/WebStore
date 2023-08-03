@@ -18,7 +18,7 @@ namespace AspNetCoreTemplate.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var categories = await categoryService.ListAllCategoriesAsync();
+            var categories = await categoryService.ListAllAsync();
 
             return this.View(categories);
         }
@@ -39,7 +39,7 @@ namespace AspNetCoreTemplate.Web.Controllers
                 return this.View(model);
             }
 
-            await categoryService.CreateSaveAsync(model);
+            await categoryService.CreateAsync(model);
 
             return this.RedirectToAction(nameof(this.Index));
         }
@@ -49,7 +49,7 @@ namespace AspNetCoreTemplate.Web.Controllers
         {
             var category = await categoryService.FindAsync(id);
 
-            if (category == null) 
+            if (category == null)
             {
                 return BadRequest(); //TODO: idk if badrequest is a good return here lol
             }
@@ -70,12 +70,27 @@ namespace AspNetCoreTemplate.Web.Controllers
             if (category != null)
             {
                 category.Name = model.Name;
-                category.CategoryImageURL = model.CategoryImageURL;
+                category.ImageURL = model.ImageURL;
                 category.ModifiedOn = DateTime.Now;
                 await categoryService.SaveChangesAsync();
             }
 
             return this.RedirectToAction(nameof(this.Index));
         }
+
+        //TODO: fix it to work with [HTTPPOST], most likely is something with the Index view and submitting idk
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await categoryService.DeleteAsync(id);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
     }
+
+
 }

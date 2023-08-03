@@ -9,12 +9,13 @@ namespace AspNetCoreTemplate.Web.ViewModels.Categories
     {
         public Guid Id { get; set; }
 
-        public string CategoryImageURL { get; set; } = null!;
+        [Required]
+        public string ImageURL { get; set; } = null!;
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Category name must be between {2} and {1} characters long")]
         public string Name { get; set; } = null!;
 
-        public List<SubCategory> SubCategories { get; set; } = new List<SubCategory>();
+        //public List<SubCategory> SubCategories { get; set; } = new List<SubCategory>(); //TODO: don't even need this xd
     }
 }

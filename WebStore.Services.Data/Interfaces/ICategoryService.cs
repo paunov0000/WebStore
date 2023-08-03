@@ -10,14 +10,16 @@ namespace WebStore.Services.Data.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<CategoryViewModel>> ListAllCategoriesAsync();
+        Task<List<CategoryViewModel>> ListAllAsync();
 
-        Task CreateSaveAsync(CategoryViewModel model);
+        Task CreateAsync(CategoryViewModel model);
 
         Task<CategoryViewModel?> FindAsync(Guid id);
 
         Task<Category?> FindCategoryAsync(Guid id);
 
         Task SaveChangesAsync();
+
+        Task DeleteAsync(Guid id);
     }
 }

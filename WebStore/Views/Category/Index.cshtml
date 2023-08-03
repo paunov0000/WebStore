@@ -10,11 +10,12 @@
     {
         <div class="col">
             <div class="card mb-5" style="width: 18rem;">
-                <img class="card-img-top" src="@category.CategoryImageURL" alt="No image" style="height: 150px">
+                <img class="card-img-top" src="@category.ImageURL" alt="No image" style="height: 150px">
                 <div class="card-body">
                     <h5 class="card-title">@category.Name</h5>
                     @*<p class="card-text">@category.Description</p>*@
                     <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>

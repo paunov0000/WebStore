@@ -23,7 +23,7 @@ namespace AspNetCoreTemplate.Data.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        public string CategoryImageURL { get; set; } = null!;
+        public string ImageURL { get; set; } = null!;
 
         [Required]
         public bool IsDeleted { get; set; }

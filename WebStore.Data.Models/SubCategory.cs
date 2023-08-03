@@ -22,10 +22,15 @@ namespace AspNetCoreTemplate.Data.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        public string SubCategoryImageURL { get; set; } = null!;
+        public string ImageURL { get; set; } = null!;
 
         [Required]
         public bool IsDeleted { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
 
         [ForeignKey(nameof(Category))]
         public Guid CategoryId { get; set; }

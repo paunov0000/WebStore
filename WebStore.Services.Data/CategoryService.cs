@@ -15,11 +15,11 @@ namespace WebStore.Services.Data
             dbContext = _dbContext;
         }
 
-        public async Task CreateSaveAsync(CategoryViewModel model)
+        public async Task CreateAsync(CategoryViewModel model) //TODO: change the name and remove the savechangesasync inside of the method
         {
             var category = new Category()
             {
-                CategoryImageURL = model.CategoryImageURL,
+                ImageURL = model.ImageURL,
                 CreatedOn = DateTime.Now,
                 Name = model.Name,
                 IsDeleted = false,
@@ -31,13 +31,24 @@ namespace WebStore.Services.Data
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Guid id)
+        {
+            var category = await FindCategoryAsync(id);
+
+            if (category != null)
+            {
+                category.IsDeleted = true;
+                await SaveChangesAsync();
+            }
+        }
+
         public async Task<CategoryViewModel?> FindAsync(Guid id) //TODO: make it w <> for the entity
             => await dbContext
                 .Categories
                 .Where(x => x.Id == id)
                 .Select(x => new CategoryViewModel()
                 {
-                    CategoryImageURL = x.CategoryImageURL,
+                   ImageURL = x.ImageURL,
                     Name = x.Name,
                     Id = x.Id,
                 })
@@ -49,17 +60,17 @@ namespace WebStore.Services.Data
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync(); //TODO: what if its null? should return bad request or sum
 
-        public async Task<List<CategoryViewModel>> ListAllCategoriesAsync()
+        public async Task<List<CategoryViewModel>> ListAllAsync()
             => await dbContext
                     .Categories
                        .Where(x => x.IsDeleted == false)
                        .OrderBy(x => x.Name)
                     .Select(c => new CategoryViewModel()
                     {
-                        CategoryImageURL = c.CategoryImageURL,
+                        ImageURL = c.ImageURL,
                         Id = c.Id,
                         Name = c.Name,
-                        SubCategories = c.SubCategories.ToList()
+                        //SubCategories = c.SubCategories.ToList()
                     })
                     .ToListAsync();
 
