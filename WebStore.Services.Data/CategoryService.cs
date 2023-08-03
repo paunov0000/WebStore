@@ -31,7 +31,7 @@ namespace WebStore.Services.Data
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<CategoryViewModel?> FindAsync(Guid id)
+        public async Task<CategoryViewModel?> FindAsync(Guid id) //TODO: make it w <> for the entity
             => await dbContext
                 .Categories
                 .Where(x => x.Id == id)
@@ -42,7 +42,12 @@ namespace WebStore.Services.Data
                     Id = x.Id,
                 })
                 .FirstOrDefaultAsync(); //TODO: add a case when there isnt such category. the id isnt in the db
-        
+
+        public async Task<Category?> FindCategoryAsync(Guid id)
+        => await dbContext
+                .Categories
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync(); //TODO: what if its null? should return bad request or sum
 
         public async Task<List<CategoryViewModel>> ListAllCategoriesAsync()
             => await dbContext

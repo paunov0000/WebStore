@@ -16,6 +16,8 @@ namespace WebStore.Services.Data.Interfaces
 
         Task<CategoryViewModel?> FindAsync(Guid id);
 
+        Task<Category?> FindCategoryAsync(Guid id);
+
         Task SaveChangesAsync();
     }
 }

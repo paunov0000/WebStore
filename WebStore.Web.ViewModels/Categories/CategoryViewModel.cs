@@ -14,7 +14,7 @@ namespace AspNetCoreTemplate.Web.ViewModels.Categories
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Category name must be between {2} and {1} characters long")]
         public string Name { get; set; } = null!;
-        
+
         public List<SubCategory> SubCategories { get; set; } = new List<SubCategory>();
     }
 }

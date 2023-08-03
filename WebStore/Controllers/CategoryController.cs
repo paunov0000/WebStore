@@ -65,12 +65,13 @@ namespace AspNetCoreTemplate.Web.Controllers
                 return this.View(model);
             }
 
-            var category = await categoryService.FindAsync(id);
+            var category = await categoryService.FindCategoryAsync(id); //tf ??? just use the provided model
 
             if (category != null)
             {
                 category.Name = model.Name;
                 category.CategoryImageURL = model.CategoryImageURL;
+                category.ModifiedOn = DateTime.Now;
                 await categoryService.SaveChangesAsync();
             }
 
