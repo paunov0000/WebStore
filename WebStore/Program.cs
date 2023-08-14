@@ -20,7 +20,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
-
+builder.Services.AddTransient<ISubCategoryService, SubCategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 

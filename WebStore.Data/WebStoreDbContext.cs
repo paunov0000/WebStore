@@ -16,7 +16,7 @@ namespace WebStore.Data
 
         public DbSet<Category> Categories { get; set; } = null!;
 
-        public DbSet<IndividualProduct> IndividualProducts { get; set; } = null!;
+        public DbSet<Product> Products { get; set; } = null!;
 
         public DbSet<SubCategory> SubCategories { get; set; } = null!;
 

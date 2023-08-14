@@ -5,11 +5,11 @@ namespace AspNetCoreTemplate.Data.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using static EntityValidationConstants.IndividualProduct;
+    using static EntityValidationConstants.Product;
 
-    public class IndividualProduct
+    public class Product
     {
-        public IndividualProduct()
+        public Product()
         {
             this.Id = Guid.NewGuid();
         }
@@ -25,7 +25,7 @@ namespace AspNetCoreTemplate.Data.Models
         public bool IsOnSale { get; set; }
 
         [Required]
-        public string ProductImageURL { get; set; } = null!;
+        public string ImageURL { get; set; } = null!;
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
@@ -33,6 +33,11 @@ namespace AspNetCoreTemplate.Data.Models
 
         [Required]
         public bool IsDeleted { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
         public Guid SubCategoryId { get; set; }

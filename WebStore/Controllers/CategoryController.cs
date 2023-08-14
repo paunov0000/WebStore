@@ -51,7 +51,7 @@ namespace AspNetCoreTemplate.Web.Controllers
 
             if (category == null)
             {
-                return BadRequest(); //TODO: idk if badrequest is a good return here lol
+                return BadRequest();
             }
 
             return this.View(category);
@@ -65,7 +65,7 @@ namespace AspNetCoreTemplate.Web.Controllers
                 return this.View(model);
             }
 
-            var category = await categoryService.FindCategoryAsync(id); //tf ??? just use the provided model
+            var category = await categoryService.FindEntityAsync(id); //tf ??? just use the provided model
 
             if (category != null)
             {
@@ -78,12 +78,12 @@ namespace AspNetCoreTemplate.Web.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        //TODO: fix it to work with [HTTPPOST], most likely is something with the Index view and submitting idk
+        //TODO: fix it to work with [HTTPPOST], most likely is something with the Index view and submitting form idk
         public async Task<IActionResult> Delete(Guid id)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.RedirectToAction(nameof(this.Index));
             }
 
             await categoryService.DeleteAsync(id);

@@ -1,4 +1,5 @@
-﻿using AspNetCoreTemplate.Web.ViewModels.Categories;
+﻿using AspNetCoreTemplate.Data.Models;
+using AspNetCoreTemplate.Web.ViewModels.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace WebStore.Services.Data.Interfaces
 
         Task<SubCategoryViewModel?> FindAsync(Guid id);
 
-        Task<SubCategoryViewModel?> FindSubCategoryAsync(Guid id);
+        Task<SubCategory?> FindEntityAsync(Guid id);
 
         Task SaveChangesAsync();
 
         Task DeleteAsync(Guid id);
+
+        Task<IEnumerable<CategoryViewModel>> GetCategories();
 
     }
 }

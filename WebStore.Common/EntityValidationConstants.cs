@@ -14,7 +14,7 @@
             public const int NameMaxLength = 25;
         }
 
-        public static class IndividualProduct
+        public static class Product
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 30;

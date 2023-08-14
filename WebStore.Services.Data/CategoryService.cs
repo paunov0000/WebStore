@@ -33,7 +33,7 @@ namespace WebStore.Services.Data
 
         public async Task DeleteAsync(Guid id)
         {
-            var category = await FindCategoryAsync(id);
+            var category = await FindEntityAsync(id);
 
             if (category != null)
             {
@@ -54,7 +54,7 @@ namespace WebStore.Services.Data
                 })
                 .FirstOrDefaultAsync(); //TODO: add a case when there isnt such category. the id isnt in the db
 
-        public async Task<Category?> FindCategoryAsync(Guid id)
+        public async Task<Category?> FindEntityAsync(Guid id)
         => await dbContext
                 .Categories
                 .Where(x => x.Id == id)

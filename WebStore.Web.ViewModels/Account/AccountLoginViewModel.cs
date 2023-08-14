@@ -12,7 +12,7 @@ namespace AspNetCoreTemplate.Web.ViewModels.Account
         [EmailAddress(ErrorMessage = "Email address is invalid.")]
         [Required]
         [Display(Name = "Email address")]
-        public string EmailAddress { get; set; } = null!; // TODO: implement later
+        public string EmailAddress { get; set; } = null!;
 
         [DataType(DataType.Password)]
         [Required]

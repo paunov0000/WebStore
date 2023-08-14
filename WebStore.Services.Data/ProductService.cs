@@ -1,96 +1,100 @@
 ﻿using AspNetCoreTemplate.Data.Models;
 using AspNetCoreTemplate.Web.ViewModels.Categories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebStore.Data;
 using WebStore.Services.Data.Interfaces;
+using WebStore.Web.ViewModels.Product;
 using WebStore.Web.ViewModels.SubCategory;
 
 namespace WebStore.Services.Data
 {
-    public class SubCategoryService : ISubCategoryService
+    public class ProductService : IProductService
     {
         private readonly WebStoreDbContext dbContext; //TODO: here must be a repository lol, code is repeating in every service lol
 
-        public SubCategoryService(WebStoreDbContext _dbContext)
+        public ProductService(WebStoreDbContext _dbContext)
         {
             dbContext = _dbContext;
         }
 
-        public async Task CreateAsync(SubCategoryViewModel model)
+        public async Task CreateAsync(ProductViewModel model)
         {
 
-            var subCategory = new SubCategory()
+            var product = new Product()
             {
                 ImageURL = model.ImageURL,
                 CreatedOn = DateTime.Now,
                 Name = model.Name,
                 IsDeleted = false,
                 ModifiedOn = DateTime.Now,
-                CategoryId = model.CategoryId,
+                SubCategoryId = model.SubCategoryId,
+                ApplicationUserId = model.ApplicationUserId,
+                Description = model.Description,
+                IsOnSale = false,
+                //CategoryId = model.CategoryId,
                 //TODO: Do i have to map here the subcategories somehow???
             };
 
-            await dbContext.SubCategories.AddAsync(subCategory);
+            await dbContext.Products.AddAsync(product);
             await dbContext.SaveChangesAsync(); //TODO: make use of the savechangesasync method in the service!!!
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var subCategory = await FindEntityAsync(id);
+            var product = await FindEntityAsync(id);
 
-            if (subCategory != null)
+            if (product != null)
             {
-                subCategory.IsDeleted = true;
+                product.IsDeleted = true;
                 await SaveChangesAsync();
             }
         }
 
-        public async Task<SubCategoryViewModel?> FindAsync(Guid id) //TODO: make it w <> for the entity
+        //public Guid GetUserId()
+        //        => User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        public async Task<ProductViewModel?> FindAsync(Guid id) //TODO: make it w <> for the entity
             => await dbContext
-                .SubCategories
+                .Products
                 .Where(x => x.Id == id)
-                .Select(x => new SubCategoryViewModel()
+                .Select(x => new ProductViewModel()
                 {
                     ImageURL = x.ImageURL,
                     Name = x.Name,
                     Id = x.Id,
+                    Description = x.Description,
+                    ApplicationUserId = x.ApplicationUserId,
                 })
                 .FirstOrDefaultAsync(); //TODO: add a case when there isnt such category. the id isnt in the db
 
 
-        public async Task<SubCategory?> FindEntityAsync(Guid id)
+        public async Task<Product?> FindEntityAsync(Guid id)
         => await dbContext
-                .SubCategories
+                .Products
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync(); //TODO: what if its null? should return bad request or sum
 
-        public async Task<IEnumerable<CategoryViewModel>> GetCategories()
-            => await dbContext.Categories
-            .Where(c=> c.IsDeleted == false)
-            .Select(c => new CategoryViewModel()
+        public async Task<IEnumerable<SubCategoryViewModel>> GetSubCategories()
+            => await dbContext.SubCategories
+            .Where(sc => sc.IsDeleted == false)
+            .Select(sc => new SubCategoryViewModel()
             {
-                Id = c.Id,
-                ImageURL = c.ImageURL,
-                Name = c.Name,
+                Id = sc.Id,
+                Name = sc.Name,
             })
             .ToListAsync();
 
-        public async Task<List<SubCategoryViewModel>> ListAllAsync()
+        public async Task<List<ProductViewModel>> ListAllAsync()
             => await dbContext
-                    .SubCategories
+                    .Products
                        .Where(x => x.IsDeleted == false)
                        .OrderBy(x => x.Name)
-                    .Select(sc => new SubCategoryViewModel()
+                    .Select(p => new ProductViewModel()
                     {
-                        ImageURL = sc.ImageURL,
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        CategoryName = sc.Category.Name
+                        ImageURL = p.ImageURL,
+                        Id = p.Id,
+                        Name = p.Name,
+                        //CategoryName = p.Category.Name
                         //SubCategories = c.SubCategories.ToList()
                     })
                     .ToListAsync();
@@ -99,3 +103,4 @@ namespace WebStore.Services.Data
             => await dbContext.SaveChangesAsync();
     }
 }
+

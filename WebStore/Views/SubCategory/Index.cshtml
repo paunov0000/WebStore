@@ -1,0 +1,24 @@
+﻿@using WebStore.Web.ViewModels.SubCategory;
+@model IEnumerable<SubCategoryViewModel>
+
+@{
+    ViewData["Title"] = "Subcategories";
+}
+
+<div class="row">
+    @foreach (var subCategory in Model)
+    {
+        <div class="col">
+            <div class="card mb-5" style="width: 18rem;">
+                <img class="card-img-top" src="@subCategory.ImageURL" alt="No image" style="height: 150px">
+                <div class="card-body">
+                    <h5 class="card-title">@subCategory.Name</h5>
+                    <h4 class="card-title">@subCategory.CategoryName</h4>
+                    @*<p class="card-text">@category.Description</p>*@
+                    <a asp-controller="SubCategory" asp-action="Edit" asp-route-id="@subCategory.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Subcategory" asp-action="Delete" asp-route-id="@subCategory.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

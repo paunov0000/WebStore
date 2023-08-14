@@ -1,0 +1,42 @@
+﻿@using WebStore.Web.ViewModels.Product;
+@model ProductViewModel
+
+@{
+    ViewBag.Title = "Edit a Product";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <form method="post">
+        <div class="form-group">
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Write your title here...">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="SubCategoryId" class="form-label">Subcategory</label>
+                <select asp-for="SubCategoryId" class="form-control">
+                    @foreach (var category in Model.SubCategories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageURL"></label>
+                <input asp-for="ImageURL" class="form-control" placeholder="Put your image URL here...">
+                <span asp-validation-for="ImageURL" class="small text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" placeholder="Put your description here...">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+        </div>
+        <input class="btn btn-primary mt-3" type="submit" value="Edit" />
+    </form>
+</div>

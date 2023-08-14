@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AspNetCoreTemplate.Data.Models;
+using AspNetCoreTemplate.Web.ViewModels.Categories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,5 +21,11 @@ namespace WebStore.Web.ViewModels.SubCategory
 
         [Required]
         public string ImageURL { get; set; } = null!;
+
+        public Guid CategoryId { get; set; }
+
+        public string? CategoryName { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
     }
 }
